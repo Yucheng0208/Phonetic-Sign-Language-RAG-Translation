@@ -1,0 +1,11 @@
+[project]
+name = "phonetic-sign-backend"
+version = "0.1.0"
+description = "注音手語 RAG 翻譯後端 API"
+readme = "../README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Yu-Cheng Chang（張育丞）" }]
+
+[project.optional-dependencies]
+dev = ["ruff>=0.8.0"]

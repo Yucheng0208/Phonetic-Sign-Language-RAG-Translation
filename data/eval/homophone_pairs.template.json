@@ -1,0 +1,8 @@
+[
+  {
+    "zhuyin": "ㄓㄨㄥ ㄒㄧㄣ",
+    "correct": "中心",
+    "distractors": ["忠心", "中新"],
+    "note": "請複製為 homophone_pairs.json 並擴充至 30 組以上"
+  }
+]

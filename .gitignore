@@ -216,3 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Project
+frontend/node_modules/
+frontend/dist/
+backend/.venv/
+ml/dataset/features/
+data/raw/*
+!data/raw/.gitkeep
