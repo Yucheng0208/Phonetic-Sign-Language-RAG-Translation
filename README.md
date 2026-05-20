@@ -18,7 +18,7 @@
 [架構](#-系統架構) ·
 [快速開始](#-快速開始) ·
 [API](#-api-端點) ·
-[待辦事項](./docs/TODO.md)
+[待辦事項](./TODO.md)
 
 </div>
 
@@ -136,7 +136,7 @@ Phonetic-Sign-Language-RAG-Translation/
 
 ## 📋 開發待辦
 
-你需要準備的資料與 API Key，請見 **[docs/TODO.md](./docs/TODO.md)**。
+你需要準備的資料與 API Key，請見 **[TODO.md](./TODO.md)**（完整版：[docs/TODO.md](./docs/TODO.md)）。
 
 ```bash
 # 新增詞庫
