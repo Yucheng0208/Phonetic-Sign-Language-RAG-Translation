@@ -6,9 +6,8 @@
 
 *Phonetic Sign Language RAG Translation System*
 
-[![CI](https://github.com/Yucheng0208/Phonetic-Sign-Language-RAG-Translation/actions/workflows/ci.yml/badge.svg)](https://github.com/Yucheng0208/Phonetic-Sign-Language-RAG-Translation/actions/workflows/ci.yml)
 [![Version](https://img.shields.io/badge/version-0.1.0-blue?style=flat-square)](./VERSION)
-[![License](https://img.shields.io/github/license/Yucheng0208/Phonetic-Sign-Language-RAG-Translation?style=flat-square)](./LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](./LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white)](./backend/requirements.txt)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?style=flat-square&logo=fastapi&logoColor=white)](./backend)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](./frontend)
@@ -161,11 +160,15 @@ python scripts/import_corpus.py --zhuyin "ㄋㄧˇ ㄏㄠˇ" --text "你好" --t
 
 ## 📄 授權
 
-本專案採用 **[MIT License](./LICENSE)** 授權。
+本專案以 **[MIT License](./LICENSE)** 開源。
+
+- 可自由使用、修改、散布與商用
+- 需保留版權與授權聲明
+- 軟體按「現狀」提供，不提供任何保證
 
 ```
+MIT License
 Copyright (c) 2026 Yu-Cheng Chang（張育丞）
-SPDX-License-Identifier: MIT
 ```
 
 ---
