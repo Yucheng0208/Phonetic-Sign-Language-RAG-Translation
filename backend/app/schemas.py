@@ -53,3 +53,11 @@ class HealthResponse(BaseModel):
     corpus_entries: int
     gemini_configured: bool
     model_loaded: bool = False
+
+
+class VersionResponse(BaseModel):
+    version: str
+    manifest: str = Field(
+        default="",
+        description="Full VERSION file body after the semver line / VERSION 檔第二行起之內容說明",
+    )

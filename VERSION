@@ -1,1 +1,59 @@
 0.1.0
+
+# =============================================================================
+# Phonetic Sign Translator / 注手快譯通 — Version Manifest / 版本內容說明
+# =============================================================================
+# Line 1 is the semantic version used by API and badges.
+# 第一行為語意化版本號，供 API 與徽章使用。
+# -----------------------------------------------------------------------------
+
+## Included in this release / 本版本包含
+
+### Backend / 後端 (backend/)
+- FastAPI REST API: health, translate, RAG search, recognize (demo stub)
+- WebSocket: /ws/translate for live translation
+- Hybrid RAG: BM25 + Zhuyin n-gram fusion
+- Google Gemini integration (mock when API key is unset)
+- PyTorch recognizer hook (loads ml/checkpoints/cnn_lstm.pt when present)
+
+### Frontend / 前端 (frontend/)
+- React 19 + TypeScript + Vite
+- Camera preview (WebRTC / MediaDevices)
+- Swiper language picker (zh-TW, zh-CN, en, ja, ko)
+- Demo sign-recognition buttons → full translate pipeline
+- REST and optional WebSocket client
+
+### Machine learning / 機器學習 (ml/)
+- MediaPipe Holistic keypoint extraction (extract_features.py)
+- CNN+LSTM training scaffold (train_cnn_lstm.py, pending labeled data)
+- Dataset layout: dataset/features/, dataset/labels.csv, checkpoints/
+
+### Data / 資料 (data/)
+- Zhuyin RAG corpus: data/zhuyin_corpus/*.json (40+ sample phrases)
+- Raw media slot: data/raw/ (videos, MOE word list — user-provided)
+- Evaluation template: data/eval/homophone_pairs.template.json
+
+### Scripts & tooling / 腳本與工具 (scripts/)
+- dev.sh — run backend + frontend together
+- import_corpus.py — add RAG corpus entries
+- eval_rag.py — Top-1 / Top-3 evaluation (needs homophone_pairs.json)
+
+### Documentation / 文件 (docs/, root)
+- README.md (English), TODO.md (bilingual checklist)
+- CITATION.bib — BibTeX for academic citation
+- LICENSE — MIT
+
+### Infrastructure / 基礎建設
+- GitHub Actions CI (backend import check + frontend build)
+- .env.example — GEMINI_API_KEY, CORS, RAG_EMBEDDING_ALPHA
+
+## Not yet included / 尚未包含
+- Trained CNN+LSTM weights (requires labeled sign videos)
+- bge-m3 / ChromaDB vector store upgrade
+- Production deployment configs (Docker, cloud)
+- MOE full lexicon import (waiting for user data)
+
+## MVP criteria (v0.2.0 target) / 下一版目標
+- Real-time Zhuyin output from camera or keypoints
+- Reportable homophone RAG Top-3 accuracy
+- End-to-end latency metrics for thesis

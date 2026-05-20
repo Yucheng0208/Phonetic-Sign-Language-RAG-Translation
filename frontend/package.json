@@ -7,7 +7,6 @@
     "type": "git",
     "url": "https://github.com/Yucheng0208/Phonetic-Sign-Language-RAG-Translation.git"
   },
-  "author": "Yu-Cheng Chang（張育丞）",
   "type": "module",
   "scripts": {
     "dev": "vite",

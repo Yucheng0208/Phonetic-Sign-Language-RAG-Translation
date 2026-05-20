@@ -113,7 +113,7 @@ export default function App() {
         <h1>注手快譯通</h1>
         <p className="subtitle">注音手語 · RAG 消歧 · 多語翻譯</p>
         <p className="health">{health}</p>
-        <p className="todo-link">待辦清單：repo 根目錄 TODO.md</p>
+        <p className="todo-link">TODO / 待辦：see TODO.md in repo root</p>
       </header>
 
       <main className="main-grid">

@@ -10,24 +10,24 @@ from app.schemas import (
     RecognizeResponse,
     TranslateRequest,
     TranslateResponse,
+    VersionResponse,
 )
 from app.services.pipeline import run_rag_search, run_translate
+from app.version_info import read_manifest, read_version
 
 router = APIRouter()
 
 
-def _app_version() -> str:
-    from app.config import ROOT_DIR
-
-    version_file = ROOT_DIR / "VERSION"
-    return version_file.read_text(encoding="utf-8").strip() if version_file.is_file() else "0.1.0"
+@router.get("/version", response_model=VersionResponse)
+def version_info() -> VersionResponse:
+    return VersionResponse(version=read_version(), manifest=read_manifest())
 
 
 @router.get("/health", response_model=HealthResponse)
 def health() -> HealthResponse:
     return HealthResponse(
         status="ok",
-        version=_app_version(),
+        version=read_version(),
         corpus_entries=len(load_corpus()),
         gemini_configured=bool(settings.gemini_api_key),
         model_loaded=model_checkpoint_exists(),

@@ -1,14 +1,15 @@
-# 機器學習管線
+# Machine Learning Pipeline / 機器學習管線
 
-## 1. 安裝
+## 1. Install / 安裝
 
 ```bash
 pip install -r ml/requirements.txt
 ```
 
-## 2. 擷取關鍵點
+## 2. Extract keypoints / 擷取關鍵點
 
-將影片放於 `data/raw/`，執行：
+Place videos in `data/raw/`, then run:  
+將影片放於 `data/raw/` 後執行：
 
 ```bash
 python ml/extract_features.py \
@@ -16,26 +17,27 @@ python ml/extract_features.py \
   --output ml/dataset/features/your_clip.json
 ```
 
-## 3. 標註
+## 3. Labels / 標註
 
-複製 `ml/dataset/labels.csv.example` → `labels.csv`，填寫 `filename,zhuyin,text`。
+Copy `ml/dataset/labels.csv.example` → `labels.csv` with columns `filename,zhuyin,text`.
 
-## 4. 訓練（待實作）
+## 4. Train (pending implementation) / 訓練（待實作）
 
 ```bash
 python ml/train_cnn_lstm.py --epochs 50
 ```
 
-權重輸出：`ml/checkpoints/cnn_lstm.pt`（後端 `/api/health` 的 `model_loaded` 會變 true）
+Weights output / 權重輸出：`ml/checkpoints/cnn_lstm.pt`  
+Backend `/api/health` will report `model_loaded: true` when present.
 
-## 目錄
+## Layout / 目錄
 
 ```
 ml/
 ├── extract_features.py
 ├── train_cnn_lstm.py
 ├── dataset/
-│   ├── features/     # JSON 關鍵點
+│   ├── features/     # keypoint JSON / 關鍵點 JSON
 │   └── labels.csv
 └── checkpoints/
 ```

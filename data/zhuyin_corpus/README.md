@@ -1,31 +1,33 @@
-# 注音詞庫格式
+# Zhuyin Corpus Format / 注音詞庫格式
 
-目錄內所有 `*.json` 會被後端自動載入合併。
+All `*.json` files in this directory are loaded and merged by the backend.  
+目錄內所有 `*.json` 會由後端自動載入合併。
 
-## JSON 陣列格式
+## JSON array schema / JSON 陣列格式
 
 ```json
 [
   {
     "zhuyin": "ㄓㄨㄥ ㄒㄧㄣ",
     "text": "中心",
-    "tags": ["地點", "常用"]
+    "tags": ["location", "common"]
   }
 ]
 ```
 
-| 欄位 | 必填 | 說明 |
-|------|------|------|
-| `zhuyin` | 是 | 空格分隔注音，例：`ㄋㄧˇ ㄏㄠˇ` |
-| `text` | 是 | 對應中文詞或短語 |
-| `tags` | 否 | 分類標籤，供 RAG / UI 顯示 |
+| Field / 欄位 | Required / 必填 | Description / 說明 |
+|--------------|-----------------|-------------------|
+| `zhuyin` | Yes / 是 | Space-separated Zhuyin, e.g. `ㄋㄧˇ ㄏㄠˇ` |
+| `text` | Yes / 是 | Chinese word or phrase / 中文詞或短語 |
+| `tags` | No / 否 | Labels for RAG and UI / 分類標籤 |
 
-## 同音多義
+## Homophones / 同音多義
 
-同一 `zhuyin` 可有多筆 `text`（RAG 會全部列入候選）。
+Multiple `text` entries may share the same `zhuyin`; RAG returns all as candidates.  
+同一 `zhuyin` 可對應多筆 `text`，RAG 會全部列入候選。
 
-## 匯入工具
+## Import tool / 匯入工具
 
 ```bash
-python scripts/import_corpus.py --zhuyin "ㄒㄧㄝˋ ㄒㄧㄝˋ" --text "謝謝" --tags 問候
+python scripts/import_corpus.py --zhuyin "ㄒㄧㄝˋ ㄒㄧㄝˋ" --text "謝謝" --tags greeting
 ```

@@ -1,127 +1,126 @@
-# 你還要做的事 — 專題 TODO
+# Project TODO / 專題待辦清單
 
-> **注手快譯通** · 最後更新：2026-05-20  
-> 勾選 `[x]` 代表完成。細節與開發任務見 [docs/TODO.md](./docs/TODO.md)。
+> **Phonetic Sign Translator / 注手快譯通** · Last updated / 最後更新：2026-05-20  
+> Check `[x]` when done / 完成請勾選。Technical tasks / 技術任務見 [docs/TODO.md](./docs/TODO.md)。
 
 ---
 
-## 本週最優先（先做這 5 件）
+## Top Priority This Week / 本週最優先（5 items）
 
-- [ ] **1. 申請 Gemini API Key**  
+- [ ] **1. Apply for Gemini API Key / 申請 Gemini API Key**  
   → [Google AI Studio](https://aistudio.google.com/apikey)  
-  → 複製到 `.env`：`GEMINI_API_KEY=你的金鑰`
+  → Add to `.env`: `GEMINI_API_KEY=your_key`
 
-- [ ] **2. 本機跑起來確認**  
+- [ ] **2. Run locally and verify / 本機啟動驗證**  
   ```bash
   cp .env.example .env
   ./scripts/dev.sh
   ```  
-  → 開 http://localhost:5173 ，點「中心（同音演示）」看 RAG + 翻譯
+  → Open http://localhost:5173 → click **Center (homophone demo) / 中心（同音演示）** to test RAG + translation
 
-- [ ] **3. 開始錄製注音手語影片**  
-  → 放到 `data/raw/`（每人每詞至少 20 次，光線固定、背景簡單）
+- [ ] **3. Record Zhuyin sign videos / 錄製注音手語影片**  
+  → Save under `data/raw/` (20+ repetitions per sign/word, stable lighting and simple background / 每詞至少 20 次，光線與背景固定)
 
-- [ ] **4. 建立標註表**  
-  → 複製 `ml/dataset/labels.csv.example` → `ml/dataset/labels.csv`  
-  → 填：`filename,zhuyin,text`（檔名對應你錄的影片）
+- [ ] **4. Create label file / 建立標註表**  
+  → Copy `ml/dataset/labels.csv.example` → `ml/dataset/labels.csv`  
+  → Columns / 欄位：`filename,zhuyin,text`
 
-- [ ] **5. 下載教育部常用詞表**  
-  → 放到 `data/raw/`  
-  → 完成後跟我說「詞表已放好」，可幫你批次匯入 RAG 詞庫
-
----
-
-## 環境與帳號
-
-- [ ] 安裝 **Python 3.11+**、**Node.js 18+**
-- [ ] 後端依賴：`cd backend && pip install -r requirements.txt`
-- [ ] ML 依賴：`pip install -r ml/requirements.txt`（要擷取關鍵點時）
-- [ ] 申請 **部署平台**（擇一）：Render / Railway / 學校 VPS  
-  > GitHub Pages 只能放前端，**不能**跑 FastAPI 後端
-- [ ] （選用）啟用 **GitHub Pages** 部署前端靜態站
+- [ ] **5. Download MOE common word list / 下載教育部常用詞表**  
+  → Place in `data/raw/`  
+  → Notify when ready (e.g. “lexicon in data/raw”) for batch RAG import / 完成後可協助批次匯入詞庫
 
 ---
 
-## 資料蒐集（論文核心，缺了無法訓練模型）
+## Environment and Accounts / 環境與帳號
 
-- [ ] **注音手語影片** `.mp4` → `data/raw/`
-- [ ] **標註 CSV** → `ml/dataset/labels.csv`
-- [ ] 執行關鍵點擷取：
+- [ ] Install **Python 3.11+** and **Node.js 18+** / 安裝執行環境
+- [ ] Backend deps / 後端依賴：`cd backend && pip install -r requirements.txt`
+- [ ] ML deps / ML 依賴：`pip install -r ml/requirements.txt` (for keypoint extraction / 擷取關鍵點時)
+- [ ] Choose a **hosting platform / 部署平台** (one of): Render · Railway · campus VPS  
+  > GitHub Pages serves static frontend only; **cannot** run FastAPI / 僅能放前端，無法跑後端
+- [ ] (Optional) Enable **GitHub Pages** for frontend / 啟用前端靜態部署
+
+---
+
+## Data Collection / 資料蒐集（required for model training / 訓練必備）
+
+- [ ] **Zhuyin sign videos** `.mp4` → `data/raw/`
+- [ ] **Label CSV** → `ml/dataset/labels.csv`
+- [ ] Run keypoint extraction / 執行關鍵點擷取：
   ```bash
   python ml/extract_features.py \
-    --input data/raw/你的影片.mp4 \
+    --input data/raw/your_video.mp4 \
     --output ml/dataset/features/
   ```
-- [ ] **同音消歧測試集**（至少 30 組）  
-  → 複製 `data/eval/homophone_pairs.template.json`  
-  → 另存 `data/eval/homophone_pairs.json` 並填寫
-- [ ] **37 注音符 + 5 聲調** 標籤表（若學校有標準版，放到 `data/raw/`）
-- [ ] 持續擴充 RAG 詞庫：
+- [ ] **Homophone evaluation set / 同音消歧測試集** (30+ pairs / 至少 30 組)  
+  → Copy `data/eval/homophone_pairs.template.json` → `data/eval/homophone_pairs.json`
+- [ ] **37 Zhuyin symbols + 5 tones / 37 注音 + 5 聲調** label table → `data/raw/` (if provided by school / 若學校有標準版)
+- [ ] Expand RAG corpus / 擴充詞庫：
   ```bash
-  python scripts/import_corpus.py --zhuyin "ㄋㄧˇ ㄏㄠˇ" --text "你好" --tags 問候
+  python scripts/import_corpus.py --zhuyin "ㄋㄧˇ ㄏㄠˇ" --text "你好" --tags greeting
   ```
 
 ---
 
-## 模型訓練（有影片 + 標註後）
+## Model Training / 模型訓練（after videos + labels / 有影片與標註後）
 
-- [ ] 確認 `ml/dataset/features/` 有 JSON 特徵檔
-- [ ] 確認 `ml/dataset/labels.csv` 與特徵檔名對得上
-- [ ] 訓練 CNN+LSTM（需 GPU，Colab 亦可）  
-  → `python ml/train_cnn_lstm.py`（訓練邏輯待實作，有資料後可請 AI 完成）
-- [ ] 權重放到 `ml/checkpoints/cnn_lstm.pt`
-- [ ] 重啟後端，確認 `/api/health` 的 `model_loaded: true`
+- [ ] Verify JSON features in `ml/dataset/features/` / 確認特徵檔存在
+- [ ] Align `labels.csv` filenames with feature files / 標註與檔名一致
+- [ ] Train CNN+LSTM (GPU or Colab) / 訓練模型  
+  → `python ml/train_cnn_lstm.py` (training logic pending / 訓練程式待實作)
+- [ ] Save weights to `ml/checkpoints/cnn_lstm.pt`
+- [ ] Restart backend; check `/api/health` → `model_loaded: true`
 
 ---
 
-## 論文與專題行政
+## Thesis and Administration / 論文與專題行政
 
-- [ ] 與指導教授確認中英文題目、口試／繳交日期
-- [ ] 若拍攝他人手語 → 準備**受試者同意書**
-- [ ] 撰寫：系統架構圖、RAG 同音實驗、辨識準確率、端到端延遲
-- [ ] 跑 RAG 評估（需測試集）：
+- [ ] Confirm thesis title (EN/ZH) and deadlines with advisor / 與指導教授確認題目與口試日期
+- [ ] Prepare **consent forms** if filming other signers / 拍攝他人手語需受試者同意書
+- [ ] Write up: architecture, RAG homophone experiments, accuracy, latency / 撰寫架構圖、RAG 實驗、準確率、延遲
+- [ ] Run RAG evaluation / 執行 RAG 評估：
   ```bash
   python scripts/eval_rag.py
   ```
 
 ---
 
-## 部署與展示（後期）
+## Deployment and Demo / 部署與展示（later phase）
 
-- [ ] 後端部署到 Render / Railway（設定 `GEMINI_API_KEY`、CORS）
-- [ ] 前端 build：`cd frontend && npm run build`
-- [ ] 前端部署（GitHub Pages 或與後端同域）
-- [ ] 準備口試/demo：同音詞「ㄓㄨㄥ ㄒㄧㄣ」、多語翻譯、即時 WebSocket
-
----
-
-## 加值項目（時間夠再做）
-
-- [ ] RAG 升級 **bge-m3 + ChromaDB**
-- [ ] **Docker Compose** 一鍵啟動
-- [ ] **Zerotier** 私有 LLM（Bonus 資安展示）
+- [ ] Deploy backend to Render or Railway (`GEMINI_API_KEY`, CORS) / 後端上雲
+- [ ] Build frontend: `cd frontend && npm run build`
+- [ ] Deploy frontend (GitHub Pages or same domain as API) / 前端部署
+- [ ] Prepare oral demo: homophone `ㄓㄨㄥ ㄒㄧㄣ`, multilingual output, WebSocket / 口試演示腳本
 
 ---
 
-## 已幫你做好（不用再寫）
+## Optional Enhancements / 加值項目（時間允許時）
 
-- [x] 專案骨架、MIT 授權、README 徽章
-- [x] FastAPI + RAG + Gemini（mock）+ WebSocket
-- [x] React 前端（攝影機、語言選擇、演示按鈕）
-- [x] 示範詞庫 40+ 筆、匯入腳本、MediaPipe 擷取腳本
-- [x] CI、版本號 `VERSION`
+- [ ] Upgrade RAG to **bge-m3 + ChromaDB**
+- [ ] **Docker Compose** one-command stack
+- [ ] **ZeroTier** private LLM endpoint (security bonus / 資安展示)
 
 ---
 
-## 完成標準（MVP 口試/demo）
+## Already Done / 已完成（無需重複）
 
-| 項目 | 完成？ |
-|------|--------|
-| 鏡頭或演示 → 輸出注音序列 | [ ] |
-| 同音詞 RAG 可展示 Top-3 | [ ] |
-| 中文組句 + ≥2 種外語 | [ ] |
-| 有端到端延遲數據（ms）可寫進論文 | [ ] |
+- [x] Monorepo scaffold, MIT license, README badges / 專案骨架與文件
+- [x] FastAPI + RAG + Gemini (mock) + WebSocket
+- [x] React UI (camera, language picker, demo buttons) / 前端介面
+- [x] Sample corpus 40+ entries, import script, MediaPipe extractor / 詞庫與擷取腳本
+- [x] CI workflow and `VERSION` file
 
 ---
 
-**有進度時**：在對話標編號，例如「#5 詞表已放 data/raw」，我會接著幫你寫匯入或訓練程式。
+## MVP Completion Criteria / 完成標準（demo / 口試）
+
+| Criterion / 項目 | Done? |
+|------------------|-------|
+| Camera or demo → Zhuyin sequence / 鏡頭或演示 → 注音輸出 | [ ] |
+| Homophone RAG Top-3 demonstrable / 同音 RAG Top-3 可展示 | [ ] |
+| Chinese sentence + ≥2 target languages / 中文 + 至少兩種外語 | [ ] |
+| End-to-end latency (ms) for thesis / 端到端延遲可寫入論文 | [ ] |
+
+---
+
+**Progress updates / 有進度時**：Reference item numbers in chat (e.g. “#5 lexicon in data/raw”) to continue import or training work / 標註編號即可接續開發。

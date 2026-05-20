@@ -1,37 +1,38 @@
-# 開發者 TODO（技術細節）
+# Developer TODO / 開發者待辦（技術細節）
 
-> **給你的行動清單**請看專案根目錄 → **[../TODO.md](../TODO.md)**
+> Action checklist for you / 個人待辦清單 → **[../TODO.md](../TODO.md)**
 
-本檔記錄依賴關係、API 編號與可指派給 AI 的開發任務。
-
----
-
-## 需使用者提供（🔴）
-
-| # | 項目 | 阻塞 |
-|---|------|------|
-| 1 | Gemini API Key | LLM 真實翻譯 |
-| 4–5 | 影片 + labels.csv | CNN+LSTM 訓練 |
-| 6 | 教育部詞表 | RAG 覆蓋率 |
-| 7 | homophone_pairs.json | RAG 實驗數據 |
-| 9 | GPU | 本機訓練速度 |
+This file tracks dependencies, item IDs, and tasks assignable to AI or developers.  
+本檔記錄依賴關係、編號與可指派開發任務。
 
 ---
 
-## 可接續開發（AI / 開發者）
+## Blocked on User Input / 需使用者提供
 
-| ID | 任務 | 依賴 |
-|----|------|------|
-| A | 批次匯入教育部詞表 | #6 |
-| B | 實作 `train_cnn_lstm.py` | #4 #5 |
-| C | 後端 PyTorch 推論 | B |
-| D | 前端送 keypoints → `/api/recognize` | C |
+| # | Item / 項目 | Blocks / 阻塞 |
+|---|-------------|---------------|
+| 1 | Gemini API Key | Real LLM translation / 真實 LLM 翻譯 |
+| 4–5 | Videos + `labels.csv` | CNN+LSTM training / 模型訓練 |
+| 6 | MOE common word list / 教育部詞表 | RAG coverage / 詞庫覆蓋率 |
+| 7 | `homophone_pairs.json` | RAG experiment metrics / 實驗數據 |
+| 9 | GPU | Local training speed / 本機訓練速度 |
+
+---
+
+## Continuable Development / 可接續開發（AI / developer）
+
+| ID | Task / 任務 | Depends on / 依賴 |
+|----|-------------|-------------------|
+| A | Batch-import MOE lexicon / 批次匯入教育部詞表 | #6 |
+| B | Implement `train_cnn_lstm.py` | #4, #5 |
+| C | Backend PyTorch inference / 後端推論 | B |
+| D | Frontend sends keypoints → `/api/recognize` | C |
 | E | bge-m3 + ChromaDB | — |
-| F | `eval_rag.py` 報告產出 | #7 |
-| G | Docker Compose | 部署帳號 |
+| F | `eval_rag.py` report output / 評估報告 | #7 |
+| G | Docker Compose | hosting account / 部署帳號 |
 
 ---
 
-## 檔案約定
+## File Layout / 檔案約定
 
-見 [../TODO.md](../TODO.md) 與 `data/zhuyin_corpus/README.md`。
+See [../TODO.md](../TODO.md) and `data/zhuyin_corpus/README.md`.
